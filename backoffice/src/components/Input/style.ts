@@ -1,0 +1,18 @@
+import { Box, TextField } from "@mui/material";
+import { styled } from '@mui/material/styles';
+
+
+export const CustomTextField = styled(TextField)`
+border-radius: 3px;
+max-width: 1449px;
+width: 100%;
+&.MuiOutlinedInput-root {
+    border: none;
+  }
+`;
+
+export const DivInput = styled(Box)`
+display: flex;
+flex-direction: row;
+align-items: center;
+`
