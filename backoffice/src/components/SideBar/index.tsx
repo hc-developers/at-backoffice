@@ -6,17 +6,31 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import Regras from '../../assets/rule.svg'
+import Orçamento from '../../assets/orçamento.svg'
+import Cliente from '../../assets/cliente.svg'
+import Serviços from '../../assets/serviços.svg'
+import Logo from '../../assets/logo.svg'
+import LogoOpen from '../../assets/LogoOpen.svg'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useState } from 'react';
 
 const drawerWidth = 240;
+
+
+const StyledListItemIcon = styled(ListItemIcon)(({ theme }) => ({
+  '&.Mui-focused, &.Mui-selected, &:hover': {
+    background: 'grey',
+    borderRadius: '30px'
+  },
+}));
+
+
+
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -44,7 +58,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -78,20 +91,25 @@ interface DrawerProps extends MuiDrawerProps {
 }
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open, onMouseOver,  }: DrawerProps) => ({
+  ({ theme, open, onMouseOver }: DrawerProps) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
     ...(open && {
       ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
+      '& .MuiDrawer-paper': {
+        ...openedMixin(theme),
+        background: '#364D7F', 
+      },
     }),
     ...(!open && {
       ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
+      '& .MuiDrawer-paper': {
+        ...closedMixin(theme),
+        background: '#364D7F', 
+      },
     }),
-    // Display the sidebar when mouse is over or when it's open
     display: open || onMouseOver ? 'block' : 'none',
   }),
 );
@@ -99,6 +117,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [isSidebarHovered, setSidebarHovered] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -108,23 +127,30 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
+  const handleSidebarMouseEnter = () => {
+    setSidebarHovered(true);
+  };
+
+  const handleSidebarMouseLeave = () => {
+    setSidebarHovered(false);
+  };
+
+  const menuItems1 = ['Regras', 'Meus Orçamentos'];
+  const menuItems2 = ['Cliente', 'Serviços'];
+  const menuItems3 = ['Sair'];
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} />
-      <div
-        onMouseOver={handleDrawerOpen}
-        onMouseLeave={handleDrawerClose}
-      >
+     <div onMouseEnter={handleSidebarMouseEnter} onMouseLeave={handleSidebarMouseLeave}>
         <Drawer variant="permanent" open={open} onMouseOver={handleDrawerOpen} onMouseLeave={handleDrawerClose}>
           <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
+          <img src={isSidebarHovered ? LogoOpen : Logo} alt="Logo" />
           </DrawerHeader>
-          <Divider />
+          <Divider sx={{ background: 'white', width: '80%', margin: '0 auto' }} />
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            {menuItems1.map((text, index) => (
               <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
                   sx={{
@@ -133,23 +159,27 @@ export default function MiniDrawer() {
                     px: 2.5,
                   }}
                 >
-                  <ListItemIcon
+                  <StyledListItemIcon
                     sx={{
                       minWidth: 0,
                       mr: open ? 3 : 'auto',
                       justifyContent: 'center',
                     }}
                   >
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
+                    {index === 0 ? (
+                      <img src={Regras} alt="Regras Icon" width={24} height={24} />
+                    ) : (
+                      <img src={Orçamento} alt="Orçamento Icon" width={24} height={24} />
+                    )}
+                  </StyledListItemIcon>
                   <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
-          <Divider />
+          <Divider sx={{ background: 'white', width: '80%', margin: '0 auto' }} />
           <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            {menuItems2.map((text, index) => (
               <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
                   sx={{
@@ -158,15 +188,44 @@ export default function MiniDrawer() {
                     px: 2.5,
                   }}
                 >
-                  <ListItemIcon
+                  <StyledListItemIcon
                     sx={{
                       minWidth: 0,
                       mr: open ? 3 : 'auto',
                       justifyContent: 'center',
                     }}
                   >
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
+                    {index === 0 ? (
+                      <img src={Cliente} alt="Cliente Icon" width={24} height={24} />
+                    ) : (
+                      <img src={Serviços} alt="Serviços Icon" width={24} height={24} />
+                    )}
+                  </StyledListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider sx={{ background: 'white', width: '80%', margin: '0 auto' }} />
+          <List>
+            {menuItems3.map((text, index) => (
+              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <StyledListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <ExitToAppIcon />
+                  </StyledListItemIcon>
                   <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
               </ListItem>
@@ -179,4 +238,6 @@ export default function MiniDrawer() {
       </Box>
     </Box>
   );
+
 }
+

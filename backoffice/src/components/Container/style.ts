@@ -5,10 +5,14 @@ display: flex;
 align-items: center;
 flex-direction: column;
 gap: 30px;
-max-width: 1449px;
-width: 80%;
-border-radius: 16px;
+width: 100%;
 border: 1px solid red;
-margin-left: 160px;
-margin-top: 20px;
+
+`
+
+export const DivHeaderContainer = styled(Box)`
+    width: 600px;
+    display: flex;
+    gap: 50px;
+    margin-left: 30px;
 `
