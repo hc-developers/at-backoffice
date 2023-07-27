@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material';
 import './App.css';
-import {theme} from './Theme/index'
+import {theme} from './Theme/Colors/index'
 import { Container } from './components/Container';
 
 

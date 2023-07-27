@@ -16,8 +16,9 @@ import Cliente from '../../assets/cliente.svg'
 import Serviços from '../../assets/serviços.svg'
 import Logo from '../../assets/logo.svg'
 import LogoOpen from '../../assets/LogoOpen.svg'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Exit from '../../assets/Sair.svg';
 import { useState } from 'react';
+
 
 const drawerWidth = 240;
 
@@ -101,6 +102,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       '& .MuiDrawer-paper': {
         ...openedMixin(theme),
         background: '#364D7F', 
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '60px'
       },
     }),
     ...(!open && {
@@ -108,6 +112,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       '& .MuiDrawer-paper': {
         ...closedMixin(theme),
         background: '#364D7F', 
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '60px'
       },
     }),
     display: open || onMouseOver ? 'block' : 'none',
@@ -172,7 +179,7 @@ export default function MiniDrawer() {
                       <img src={Orçamento} alt="Orçamento Icon" width={24} height={24} />
                     )}
                   </StyledListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: 'white' }} />
                 </ListItemButton>
               </ListItem>
             ))}
@@ -201,11 +208,12 @@ export default function MiniDrawer() {
                       <img src={Serviços} alt="Serviços Icon" width={24} height={24} />
                     )}
                   </StyledListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: 'white'}} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+          <Box sx={{ flexGrow: 1 }} />
           <Divider sx={{ background: 'white', width: '80%', margin: '0 auto' }} />
           <List>
             {menuItems3.map((text, index) => (
@@ -224,9 +232,9 @@ export default function MiniDrawer() {
                       justifyContent: 'center',
                     }}
                   >
-                    <ExitToAppIcon />
+                      <img src={Exit}/>
                   </StyledListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0, color: 'white' }} />
                 </ListItemButton>
               </ListItem>
             ))}

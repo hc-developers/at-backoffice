@@ -1,5 +1,6 @@
 import {  Select, styled } from "@mui/material";
 
+
 export const CustomSelect = styled(Select)(({ theme }) => ({
     borderRadius: '12px',
     maxWidth: '140px',
@@ -16,6 +17,6 @@ export const CustomSelect = styled(Select)(({ theme }) => ({
   
     // Estilo para a borda roxa
     '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.primary.main,
+        borderColor: theme.palette.purple[400]
     },
   }));

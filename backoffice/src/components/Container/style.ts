@@ -7,6 +7,7 @@ flex-direction: column;
 gap: 30px;
 width: 100%;
 border: 1px solid red;
+max-width: 1449px;
 
 `
 
